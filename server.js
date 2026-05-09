@@ -1,53 +1,51 @@
 const express = require("express");
 const cors = require("cors");
+const ytdl = require("@distube/ytdl-core");
 
 const app = express();
 
 app.use(cors());
 
-app.use(express.static("./"));
-
 app.get("/", (req, res) => {
-  res.send("Shad YT API Running");
+  res.send("YT API RUNNING");
 });
 
-app.get("/api/download", (req, res) => {
+app.get("/info", async (req, res) => {
 
-  const url = req.query.url;
+  try {
 
-  if (!url) {
-    return res.json({
-      error: "No URL"
+    const url = req.query.url;
+
+    if (!url) {
+      return res.json({
+        error: "No URL"
+      });
+    }
+
+    const info = await ytdl.getInfo(url);
+
+    const videoFormats = ytdl.filterFormats(info.formats, "videoandaudio");
+
+    const audioFormats = ytdl.filterFormats(info.formats, "audioonly");
+
+    const video = videoFormats[0];
+    const audio = audioFormats[0];
+
+    res.json({
+      title: info.videoDetails.title,
+      thumbnail: info.videoDetails.thumbnails.pop().url,
+      video: video.url,
+      audio: audio.url
     });
+
+  } catch (err) {
+
+    res.json({
+      error: "Failed",
+      details: err.toString()
+    });
+
   }
-
-  res.json({
-    title: "ভিডিও পাওয়া গেছে",
-    thumbnail: "https://i.imgur.com/7P7R9YB.jpeg",
-
-    formats: [
-      {
-        quality: "360p",
-        size: "8 MB",
-        type: "mp4",
-        url: url
-      },
-
-      {
-        quality: "720p",
-        size: "15 MB",
-        type: "mp4",
-        url: url
-      },
-
-      {
-        quality: "MP3",
-        size: "4 MB",
-        type: "mp3",
-        url: url
-      }
-    ]
-  });
 
 });
 
