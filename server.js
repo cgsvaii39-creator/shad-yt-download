@@ -10,47 +10,57 @@ app.get("/", (req, res) => {
   res.send("YT API RUNNING");
 });
 
-app.get("/info", async (req, res) => {
-
+app.get("/api", async (req, res) => {
   try {
-
     const url = req.query.url;
 
     if (!url) {
       return res.json({
-        error: "No URL"
+        status: false,
+        message: "No URL"
       });
     }
 
     const info = await ytdl.getInfo(url);
 
-    const videoFormats = ytdl.filterFormats(info.formats, "videoandaudio");
+    const title = info.videoDetails.title;
+    const thumbnail = info.videoDetails.thumbnails.pop().url;
 
-    const audioFormats = ytdl.filterFormats(info.formats, "audioonly");
+    const formats = ytdl.filterFormats(info.formats, "videoandaudio");
 
-    const video = videoFormats[0];
-    const audio = audioFormats[0];
+    const data = [];
+
+    formats.forEach((f) => {
+      if (f.hasVideo && f.hasAudio && f.container === "mp4") {
+        data.push({
+          quality: f.qualityLabel,
+          url: f.url
+        });
+      }
+    });
+
+    const audio = ytdl.filterFormats(info.formats, "audioonly")[0];
 
     res.json({
-      title: info.videoDetails.title,
-      thumbnail: info.videoDetails.thumbnails.pop().url,
-      video: video.url,
-      audio: audio.url
+      status: true,
+      title,
+      thumbnail,
+      video: data,
+      audio: {
+        url: audio.url
+      }
     });
 
   } catch (err) {
-
     res.json({
-      error: "Failed",
-      details: err.toString()
+      status: false,
+      error: err.toString()
     });
-
   }
-
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("Server Running");
+  console.log("SERVER RUNNING");
 });
