@@ -1,38 +1,562 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shad Yt Download</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <style>
-    body{
-      margin:0;
-      background:#111;
-      color:white;
-      font-family:sans-serif;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      flex-direction:column;
-    }
+<title>Shad Yt Download</title>
 
-    h1{
-      color:orange;
-      font-size:40px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    p{
-      font-size:20px;
-    }
-  </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Hind Siliguri',sans-serif;
+}
+
+body{
+background:#f4f4f4;
+color:#111;
+overflow-x:hidden;
+}
+
+:root{
+--orange1:#ff9900;
+--orange2:#ff5e00;
+}
+
+header{
+background:#fff;
+padding:40px 20px;
+border-bottom-left-radius:40px;
+border-bottom-right-radius:40px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+text-align:center;
+position:relative;
+}
+
+.logo-box{
+width:120px;
+height:120px;
+margin:auto;
+border-radius:30px;
+background:linear-gradient(135deg,var(--orange1),var(--orange2));
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 15px 35px rgba(255,102,0,.3);
+animation:float 3s infinite ease-in-out;
+position:relative;
+}
+
+.logo-box i{
+font-size:55px;
+color:#fff;
+}
+
+.logo-text{
+position:absolute;
+bottom:10px;
+font-size:14px;
+font-weight:700;
+color:#fff;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+100%{transform:translateY(0)}
+}
+
+header h1{
+font-size:42px;
+margin-top:25px;
+font-weight:700;
+}
+
+header p{
+margin-top:10px;
+font-size:20px;
+color:#666;
+}
+
+.container{
+width:92%;
+max-width:520px;
+margin:40px auto;
+}
+
+.card{
+background:#fff;
+border-radius:35px;
+padding:30px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+margin-bottom:25px;
+}
+
+.input-box{
+width:100%;
+height:70px;
+border:none;
+outline:none;
+background:#f2f2f2;
+border-radius:20px;
+padding:0 20px 0 60px;
+font-size:18px;
+}
+
+.input-wrap{
+position:relative;
+}
+
+.input-wrap i{
+position:absolute;
+left:20px;
+top:50%;
+transform:translateY(-50%);
+color:#ff5e00;
+font-size:22px;
+}
+
+.row{
+display:flex;
+gap:15px;
+margin-top:20px;
+}
+
+.small-btn{
+flex:1;
+height:60px;
+border:none;
+border-radius:18px;
+font-size:20px;
+font-weight:600;
+background:#f2f2f2;
+cursor:pointer;
+}
+
+.download-btn{
+width:100%;
+height:75px;
+margin-top:25px;
+border:none;
+border-radius:22px;
+font-size:28px;
+font-weight:700;
+background:linear-gradient(135deg,var(--orange1),var(--orange2));
+color:#fff;
+cursor:pointer;
+box-shadow:0 15px 30px rgba(255,102,0,.25);
+}
+
+.loading{
+display:none;
+text-align:center;
+padding:30px 0;
+}
+
+.loader{
+width:70px;
+height:70px;
+border:6px solid #eee;
+border-top:6px solid #ff6600;
+border-radius:50%;
+margin:auto;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{transform:rotate(360deg)}
+}
+
+.progress{
+width:100%;
+height:12px;
+background:#eee;
+border-radius:30px;
+margin-top:20px;
+overflow:hidden;
+}
+
+.progress-bar{
+width:0%;
+height:100%;
+background:linear-gradient(90deg,var(--orange1),var(--orange2));
+transition:.3s;
+}
+
+.result{
+display:none;
+}
+
+.thumb{
+width:100%;
+border-radius:25px;
+margin-bottom:20px;
+}
+
+.video-title{
+font-size:25px;
+font-weight:700;
+text-align:center;
+margin-bottom:30px;
+line-height:1.5;
+}
+
+.format-card{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px;
+border-radius:22px;
+background:#fff;
+border:2px solid #f0f0f0;
+margin-bottom:18px;
+transition:.3s;
+}
+
+.format-card:hover{
+transform:translateY(-3px);
+border-color:#ff8800;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.icon{
+width:60px;
+height:60px;
+border-radius:18px;
+background:#fff3ea;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+color:#ff6600;
+}
+
+.q h3{
+font-size:24px;
+}
+
+.q p{
+font-size:16px;
+color:#666;
+}
+
+.d-btn{
+padding:14px 22px;
+border:none;
+border-radius:15px;
+background:linear-gradient(135deg,var(--orange1),var(--orange2));
+color:#fff;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+}
+
+.toast{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+background:#111;
+color:#fff;
+padding:15px 25px;
+border-radius:50px;
+font-size:18px;
+display:none;
+z-index:999;
+}
+
+.footer{
+text-align:center;
+padding:40px 20px;
+font-size:18px;
+color:#555;
+}
+
+.footer a{
+color:#ff6600;
+font-weight:700;
+text-decoration:none;
+}
+
+.dev{
+margin-top:12px;
+font-size:18px;
+}
+
+</style>
 </head>
+
 <body>
+
+<header>
+
+<div class="logo-box">
+<i class="fa-solid fa-download"></i>
+<div class="logo-text">DOWNLOAD</div>
+</div>
 
 <h1>Shad Yt Download</h1>
 
-<p>ওয়েবসাইট সফলভাবে চালু হয়েছে ✅</p>
+<p>দ্রুত ও প্রিমিয়াম ভিডিও ডাউনলোডার</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<div class="input-wrap">
+<i class="fa-solid fa-link"></i>
+
+<input
+type="text"
+id="url"
+class="input-box"
+placeholder="ইউটিউব ভিডিও লিংক দিন..."
+>
+</div>
+
+<div class="row">
+
+<button class="small-btn" onclick="pasteLink()">
+<i class="fa-solid fa-paste"></i>
+পেস্ট
+</button>
+
+<button class="small-btn" onclick="clearInput()">
+<i class="fa-solid fa-trash"></i>
+মুছুন
+</button>
+
+</div>
+
+<button class="download-btn" onclick="getVideo()">
+<i class="fa-solid fa-download"></i>
+ডাউনলোড করুন
+</button>
+
+<div class="loading" id="loading">
+
+<div class="loader"></div>
+
+<h3 style="margin-top:20px">
+ভিডিও তথ্য লোড হচ্ছে...
+</h3>
+
+<div class="progress">
+<div class="progress-bar" id="bar"></div>
+</div>
+
+</div>
+
+</div>
+
+<div class="result" id="result">
+
+<div class="card">
+
+<img id="thumb" class="thumb">
+
+<div class="video-title" id="title"></div>
+
+<div id="formats"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+© 2026
+<a href="https://www.facebook.com/itzz.azizul" target="_blank">
+AZIZUL ISLAM SAD
+</a>
+| All Rights Reserved
+
+<div class="dev">
+
+ডেভেলপার:
+<a href="https://www.facebook.com/itzz.azizul" target="_blank">
+AZIZUL ISLAM SAD
+</a>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+const API =
+"https://9d42a7d6-240d-4c20-92b8-308abf42680e-00-exb1plr41mvr.pike.replit.dev";
+
+function toast(text){
+
+const t=document.getElementById("toast");
+
+t.innerText=text;
+
+t.style.display="block";
+
+setTimeout(()=>{
+t.style.display="none";
+},3000);
+
+}
+
+async function pasteLink(){
+
+try{
+
+const text=await navigator.clipboard.readText();
+
+document.getElementById("url").value=text;
+
+toast("লিংক পেস্ট হয়েছে");
+
+}catch{
+
+toast("পেস্ট করা যায়নি");
+
+}
+
+}
+
+function clearInput(){
+
+document.getElementById("url").value="";
+
+document.getElementById("result").style.display="none";
+
+toast("ইনপুট মুছে ফেলা হয়েছে");
+
+}
+
+async function getVideo(){
+
+const url=document.getElementById("url").value;
+
+if(!url){
+
+toast("লিংক দিন");
+
+return;
+
+}
+
+document.getElementById("loading").style.display="block";
+
+document.getElementById("result").style.display="none";
+
+let width=0;
+
+const bar=document.getElementById("bar");
+
+const interval=setInterval(()=>{
+
+width+=10;
+
+bar.style.width=width+"%";
+
+if(width>=100){
+clearInterval(interval);
+}
+
+},300);
+
+try{
+
+const res=await fetch(
+API+"/api/download?url="+encodeURIComponent(url)
+);
+
+const data=await res.json();
+
+document.getElementById("loading").style.display="none";
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("thumb").src=data.thumbnail;
+
+document.getElementById("title").innerText=data.title;
+
+const formats=document.getElementById("formats");
+
+formats.innerHTML="";
+
+data.formats.forEach(f=>{
+
+formats.innerHTML+=`
+
+<div class="format-card">
+
+<div class="left">
+
+<div class="icon">
+<i class="fa-solid fa-video"></i>
+</div>
+
+<div class="q">
+
+<h3>${f.quality}</h3>
+
+<p>
+সাইজ: ${f.size || "অজানা"}
+</p>
+
+</div>
+
+</div>
+
+<button
+class="d-btn"
+onclick="downloadVideo('${f.url}')"
+>
+ডাউনলোড
+</button>
+
+</div>
+
+`;
+
+});
+
+toast("ভিডিও লোড হয়েছে");
+
+}catch(e){
+
+document.getElementById("loading").style.display="none";
+
+toast("ভিডিও লোড হয়নি");
+
+}
+
+}
+
+function downloadVideo(url){
+
+window.open(url,"_blank");
+
+toast("ডাউনলোড শুরু হয়েছে");
+
+}
+
+</script>
 
 </body>
 </html>
